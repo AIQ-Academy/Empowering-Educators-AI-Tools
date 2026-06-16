@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">AIQ Academy — Empowering Educators with AI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#e8edf9;
+  --surface:#ffffff;
+  --surface2:#f0f4fb;
+  --border:#d0d8f0;
+  --border2:#b8c4e8;
+  --text:#0f1e4a;
+  --text2:#3a4a7a;
+  --text3:#7a88b8;
+  --gold:#d4a520;
+  --gold2:#e8bc38;
+  --gold-glow:rgba(212,165,32,0.15);
+  --gold-border:rgba(212,165,32,0.3);
+  --green:#22c97a;
+  --amber:#f5a623;
+  --radius:14px;
+  --radius-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter', 'Noto Sans Arabic', sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
+body.rtl { direction: rtl; text-align: right; }
+
+/* ── LAYOUT ── */
+.layout{display:flex;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:272px;flex-shrink:0;background:#1a3fa6;
+  border-right:1px solid rgba(255,255,255,0.1);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;
+}
+body.rtl .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid rgba(255,255,255,0.1); }
+
+.sidebar-logo{
+  padding:28px 20px 22px;border-bottom:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  background:linear-gradient(160deg,rgba(255,255,255,0.08) 0%,transparent 100%);
+}
+.logo-img{
+  width:120px;height:120px;border-radius:16px;object-fit:contain;
+  background: white; padding: 5px;
+  border:2px solid var(--gold);box-shadow:0 0 24px rgba(212,165,32,0.28);
+}
+.logo-name{font-size:18px;font-weight:800;color:#ffffff;letter-spacing:.3px;text-align:center}
+.logo-name span{color:var(--gold2)}
+.logo-tagline{font-size:10px;color:rgba(255,255,255,0.5);text-align:center;letter-spacing:.5px;font-weight:400}
+
+.sidebar-section{padding:18px 16px 6px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase}
+
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;margin:2px 8px;
+  border-radius:var(--radius-sm);cursor:pointer;
+  font-size:12.5px;color:rgba(255,255,255,0.65);
+  border:none;background:none;width:calc(100% - 16px);text-align:left;
+  transition:background .15s,color .15s;
+}
+body.rtl .nav-item { text-align: right; }
+.nav-item:hover{background:rgba(255,255,255,0.1);color:#fff}
+.nav-item.active{background:var(--gold);color:#000;border:1px solid var(--gold)}
+.nav-num{
+  width:24px;height:24px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;background:rgba(255,255,255,0.12);color:#fff;
+}
+.nav-item.active .nav-num{background:var(--gold);color:#000}
+.nav-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+
+.api-box{margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,0.12)}
+.api-lbl{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:6px;font-weight:500}
+.api-input{
+  width:100%;padding:8px 10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);
+  border-radius:var(--radius-sm);color:#fff;font-size:12px;font-family:monospace;outline:none;
+}
+.api-input::placeholder{color:rgba(255,255,255,0.35)}
+.api-input:focus{border-color:var(--gold2)}
+.api-status{font-size:11px;margin-top:5px;color:rgba(255,255,255,0.4)}
+
+/* ── LANG TOGGLE ── */
+.lang-toggle-container {
+    padding: 10px 16px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+}
+.lang-btn {
+    width: 100%;
+    padding: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius-sm);
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+.lang-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* ── MAIN ── */
+.main{margin-left:272px;flex:1;display:flex;flex-direction:column}
+body.rtl .main { margin-left: 0; margin-right: 272px; }
+
+/* ── HERO ── */
+.hero{
+  padding:52px 56px 44px;
+  background:linear-gradient(150deg,#dce6f8 0%,#eaf0fb 50%,#f0f4fc 100%);
+  border-bottom:1px solid #c8d4ec;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:420px;height:420px;border-radius:50%;background:rgba(26,63,166,0.05)}
+.hero::after{content:'';position:absolute;bottom:-60px;left:300px;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,0.02)}
+.hero-top{display:flex;align-items:center;gap:24px;margin-bottom:22px;position:relative;z-index:1}
+.hero-logo{width:100px;height:100px;border-radius:16px;object-fit:contain; background: white; padding: 5px; border:2px solid var(--gold-border);box-shadow:0 0 28px rgba(212,165,32,0.22);flex-shrink:0}
+.hero-eyebrow{font-size:11px;font-weight:700;color:var(--gold2);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--gold2)}
+.hero h1{font-size:32px;font-weight:800;color:#0f1e4a;line-height:1.22}
+.hero h1 em{color:var(--gold2);font-style:normal}
+.hero-desc{font-size:14px;color:#3a4a7a;max-width:560px;line-height:1.85;margin-bottom:28px;position:relative;z-index:1}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:22px;position:relative;z-index:1}
+.hero-stat .n{font-size:26px;font-weight:800;color:var(--gold2)}
+.hero-stat .l{font-size:11px;color:var(--text3);margin-top:2px;font-weight:500}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:1}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(26,63,166,0.08);color:#1a3fa6;border:1px solid #b8c4e8}
+
+/* ── CONTENT ── */
+.content{flex:1;padding:36px 56px;max-width:980px}
+
+/* ── MODULE CARD ── */
+.module-card{
+  background:#ffffff;border:1px solid #d0d8f0;
+  border-radius:var(--radius);margin-bottom:16px;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s;
+}
+.module-card:hover{border-color:#b8c4e8;box-shadow:0 4px 20px rgba(26,63,166,0.1)}
+.module-card.active{border-color:var(--gold);border-left:4px solid var(--gold)}
+body.rtl .module-card.active { border-left: 1px solid #d0d8f0; border-right: 4px solid var(--gold); }
+
+.mod-header{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;user-select:none}
+.mod-badge{width:46px;height:46px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800}
+.mod-meta{flex:1}
+.mod-title{font-size:15px;font-weight:700;color:#0f1e4a}
+.mod-sub{font-size:12px;color:#7a88b8;margin-top:3px}
+.mod-toggle{font-size:18px;color:#7a88b8;transition:transform .2s}
+.mod-toggle.open{transform:rotate(180deg)}
+
+.mod-body{display:none;border-top:1px solid #d0d8f0}
+.mod-body.open{display:block}
+.mod-inner{padding:24px}
+
+/* ── SEC LABEL ── */
+.sec-label{
+  font-size:10px;font-weight:700;color:var(--text3);
+  text-transform:uppercase;letter-spacing:.8px;
+  margin-bottom:12px;margin-top:22px;
+  display:flex;align-items:center;gap:8px;
+}
+.sec-label:first-child{margin-top:0}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── TOPICS ── */
+.topics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:4px}
+.topic-card{
+  background:#f0f4fb;border:1px solid #d0d8f0;
+  border-radius:var(--radius-sm);padding:14px 15px;
+  transition:border-color .15s,transform .12s;
+}
+.topic-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.topic-icon{font-size:22px;margin-bottom:8px}
+.topic-title{font-size:13px;font-weight:600;color:#0f1e4a}
+.topic-desc{font-size:11.5px;color:#7a88b8;margin-top:3px;line-height:1.5}
+
+/* ── TOOLS ── */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:9px;margin-bottom:4px}
+.tool-chip{
+  background:#f0f4fb;border:1px solid #d0d8f0;
+  border-radius:var(--radius-sm);padding:12px 13px;
+  transition:border-color .15s,transform .12s;
+  position:relative;overflow:hidden;
+}
+.tool-chip::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--chip-accent,var(--gold))}
+.tool-chip:hover{border-color:var(--border2);transform:translateY(-2px)}
+.tool-name{font-size:13px;font-weight:700;color:#0f1e4a}
+.tool-desc{font-size:11px;color:#7a88b8;margin-top:3px;line-height:1.4}
+.tool-tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:7px}
+
+/* ── OUTCOMES ── */
+.outcomes{list-style:none;margin-bottom:22px}
+.outcomes li{display:flex;gap:10px;font-size:13px;color:#3a4a7a;padding:6px 0;border-bottom:1px solid #d0d8f0}
+.outcomes li:last-child{border-bottom:none}
+.outcomes li::before{content:"✓";color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+body.rtl .outcomes li::before { margin-left: 10px; margin-right: 0; }
+
+/* ── ASK BTN ── */
+.ask-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;background:var(--gold-glow);
+  border:1px solid var(--gold-border);border-radius:var(--radius-sm);
+  color:var(--gold2);font-size:13px;font-weight:600;
+  cursor:pointer;transition:background .15s;font-family:inherit;
+}
+.ask-btn:hover{background:rgba(212,165,32,0.25)}
+
+/* ── REGISTRATION SECTION ── */
+.registration-section{
+  background:#ffffff;border:1px solid #d0d8f0;
+  border-radius:var(--radius);padding:32px;margin:32px 0;
+}
+.reg-header{margin-bottom:28px}
+.reg-title{font-size:24px;font-weight:800;color:#0f1e4a;margin-bottom:8px}
+.reg-desc{font-size:14px;color:#3a4a7a;line-height:1.6}
+
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:20px}
+.form-group{display:flex;flex-direction:column}
+.form-label{font-size:12px;font-weight:700;color:#0f1e4a;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-input, .form-select{
+  padding:12px 14px;background:#f0f4fb;border:1px solid #d0d8f0;
+  border-radius:var(--radius-sm);font-size:13px;color:#0f1e4a;
+  font-family:inherit;transition:border-color .2s;outline:none;
+}
+.form-input:focus, .form-select:focus{border-color:var(--gold);background:#ffffff}
+.form-input::placeholder{color:#7a88b8}
+
+.form-actions{display:flex;gap:12px;flex-wrap:wrap}
+.reg-submit{
+  padding:12px 28px;background:var(--gold);color:#000;font-size:13px;font-weight:700;
+  border:none;border-radius:var(--radius-sm);cursor:pointer;
+  transition:opacity .15s;font-family:inherit;
+}
+.reg-submit:hover{opacity:.85}
+.reg-submit:disabled{background:#d0d8f0;color:#7a88b8;cursor:not-allowed}
+.reg-reset{
+  padding:12px 28px;background:#f0f4fb;color:#0f1e4a;font-size:13px;font-weight:700;
+  border:1px solid #d0d8f0;border-radius:var(--radius-sm);cursor:pointer;
+  transition:border-color .15s;font-family:inherit;
+}
+.reg-reset:hover{border-color:var(--gold)}
+
+.reg-status{margin-top:16px;padding:12px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;display:none}
+.reg-status.success{background:rgba(34,197,122,0.15);color:#22c97a;border:1px solid rgba(34,197,122,0.3);display:block}
+.reg-status.error{background:rgba(245,166,35,0.15);color:#f5a623;border:1px solid rgba(245,166,35,0.3);display:block}
+
+/* ── CHAT PANEL ── */
+.chat-panel{
+  position:fixed;right:0;top:0;bottom:0;width:390px;
+  background:#ffffff;border-left:1px solid var(--border);
+  display:flex;flex-direction:column;z-index:200;
+  transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);
+  box-shadow:-4px 0 40px rgba(0,0,0,0.5);
+}
+body.rtl .chat-panel { right: auto; left: 0; border-left: none; border-right: 1px solid var(--border); transform: translateX(-100%); }
+.chat-panel.open{transform:translateX(0)}
+
+.chat-header{
+  padding:16px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,#1a3fa6 0%,#2554cc 100%);
+}
+body.rtl .chat-header { flex-direction: row-reverse; }
+.chat-title{font-size:14px;font-weight:700;color:#ffffff;display:flex;align-items:center;gap:10px}
+.chat-logo{width:30px;height:30px;border-radius:8px;object-fit:contain; background: white; border:1px solid var(--gold-border)}
+.chat-ai-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.chat-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;font-size:22px;line-height:1;padding:2px}
+.chat-close:hover{color:#fff}
+
+.chat-ctx{padding:10px 16px;background:#e8edf9;border-bottom:1px solid #c8d4ec;font-size:12px;color:var(--gold2);font-weight:500;display:none}
+.chat-ctx.show{display:block}
+
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:92%}
+.msg.user{align-self:flex-end}
+.msg.ai{align-self:flex-start}
+.msg-bubble{padding:11px 14px;border-radius:12px;font-size:13px;line-height:1.65}
+.msg.user .msg-bubble{background:var(--gold);color:#000;font-weight:500;border-bottom-right-radius:4px}
+body.rtl .msg.user .msg-bubble { border-bottom-right-radius: 12px; border-bottom-left-radius: 4px; }
+.msg.ai .msg-bubble{background:#f0f4fb;color:#0f1e4a;border-bottom-left-radius:4px;border:1px solid #d0d8f0}
+body.rtl .msg.ai .msg-bubble { border-bottom-left-radius: 12px; border-bottom-right-radius: 4px; }
+.msg-time{font-size:10px;color:#7a88b8;margin-top:4px;padding:0 2px}
+.msg.user .msg-time{text-align:right}
+body.rtl .msg.user .msg-time { text-align: left; }
+
+.typing{display:flex;gap:5px;align-items:center;padding:12px 15px;background:#f0f4fb;border-radius:12px;border-bottom-left-radius:4px;border:1px solid #d0d8f0;width:fit-content}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+.chat-sugg{padding:8px 16px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px}
+.sugg-chip{background:#f0f4fb;border:1px solid #d0d8f0;color:#1a3fa6;font-family:inherit;font-weight:500;cursor:pointer;
+  font-size:11px;padding:5px 11px;border-radius:20px;
+  background:#f0f4fb;border:1px solid var(--border);
+  color:var(--text2);cursor:pointer;font-family:inherit;font-weight:500;
+  transition:border-color .15s,color .15s;
+}
+.sugg-chip:hover{border-color:#1a3fa6;color:#0f1e4a;background:#dce6f8}
+
+.chat-input-row{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end}
+.chat-input{background:#f0f4fb;border:1px solid #d0d8f0;color:#0f1e4a;
+  flex:1;padding:10px 12px;background:var(--surface2);
+  border:1px solid var(--border2);border-radius:var(--radius-sm);
+  color:var(--text);font-size:13px;font-family:inherit;
+  resize:none;outline:none;min-height:40px;max-height:120px;line-height:1.5;
+}
+.chat-input:focus{border-color:#1a3fa6}
+.chat-send{
+  width:38px;height:38px;border-radius:var(--radius-sm);
+  background:var(--gold);border:none;color:#000;font-size:15px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:opacity .15s;flex-shrink:0;
+}
+.chat-send:hover{opacity:.85}
+.chat-send:disabled{background:var(--surface2);color:var(--text3);cursor:not-allowed}
+
+/* ── FAB ── */
+.fab{
+  position:fixed;bottom:28px;right:28px;width:56px;height:56px;
+  border-radius:50%;background:var(--gold);border:none;color:#000;font-size:22px;
+  cursor:pointer;box-shadow:0 4px 24px rgba(212,165,32,0.45);
+  display:flex;align-items:center;justify-content:center;
+  z-index:150;transition:transform .15s,box-shadow .15s;
+}
+body.rtl .fab { right: auto; left: 28px; }
+.fab:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(212,165,32,0.6)}
+.fab.hidden{display:none}
+
+/* ── OVERLAY ── */
+.overlay{position:fixed;inset:0;background:rgba(10,25,80,0.4);z-index:150;display:none;backdrop-filter:blur(3px)}
+.overlay.show{display:block}
+
+/* ── FOOTER ── */
+.footer{
+  padding:24px 56px;border-top:1px solid #d0d8f0;
+  background:var(--surface);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.footer-left{display:flex;align-items:center;gap:12px}
+.footer-logo{width:50px;height:50px;border-radius:9px;object-fit:contain; background: white; padding: 2px; border:1px solid var(--gold-border)}
+.footer-meta{display:flex;flex-direction:column}
+.footer-name{font-size:13px;font-weight:700;color:#1a3fa6}
+.footer-info{font-size:11px;color:#7a88b8;margin-top:2px}
+.footer-right{font-size:12px;color:#7a88b8}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  body.rtl .main { margin-right: 0; }
+  .hero{padding:28px 20px 24px}
+  .content{padding:20px}
+  .hero-top{flex-direction:column;gap:14px}
+  .chat-panel{width:100%}
+  .footer{padding:18px 20px}
+  .registration-section{padding:20px}
+  .form-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <img class="logo-img" id="sidebarLogo" src="" alt="Logo">
+    <div class="logo-name">AIQ <span>Academy</span></div>
+    <div class="logo-tagline" id="sidebarTagline">Empowering Educators with AI</div>
+  </div>
+  <div class="sidebar-section" id="sidebarSection">Course Modules</div>
+  <div id="navContainer">
+    <!-- Nav items will be rendered here -->
+  </div>
+  
+  <div class="lang-toggle-container">
+    <button class="lang-btn" onclick="toggleLanguage()">
+      <span id="langBtnText">العربية</span>
+    </button>
+  </div>
+
+  <div class="api-box">
+    <div class="api-lbl" id="apiLbl">🔑 Anthropic API Key</div>
+    <input class="api-input" type="password" id="apiKey" placeholder="sk-ant-..." oninput="onKey(this.value)">
+    <div class="api-status" id="apiStatus">Enter key to enable AI assistant</div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+  <div class="hero">
+    <div class="hero-top">
+      <img class="hero-logo" id="heroLogo" src="" alt="Logo">
+      <div class="hero-content">
+        <div class="hero-eyebrow" id="heroEyebrow">
+          <span class="hero-dot"></span>
+          COURSE CURRICULUM
+        </div>
+        <h1 id="heroTitle">Empowering Educators: <em>AI Tools</em> for Transformative Teaching & Learning</h1>
+      </div>
+    </div>
+    <p class="hero-desc" id="heroDesc">Master the most impactful AI tools in education. From lesson planning to automated grading, learn how to reclaim your time and inspire your students.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n">6</div><div class="l" id="statModules">Modules</div></div>
+      <div class="hero-stat"><div class="n">30+</div><div class="l" id="statTools">Tools</div></div>
+      <div class="hero-stat"><div class="n">20</div><div class="l" id="statHours">Hours</div></div>
+    </div>
+    <div class="hero-pills" id="heroPills">
+      <span class="pill">Self-Paced</span>
+      <span class="pill">Certified</span>
+      <span class="pill">Educator-First</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div id="courseContent">
+      <!-- Modules will be rendered here -->
+    </div>
+
+    <!-- ── REGISTRATION FORM ── -->
+    <div class="registration-section" id="registrationSection">
+      <div class="reg-header">
+        <h2 class="reg-title" id="regTitle">📝 Enroll in the Course</h2>
+        <p class="reg-desc" id="regDesc">Join AIQ Academy and start your journey to mastering AI tools for education. Fill out the form below to register.</p>
+      </div>
+      <form id="registrationForm" onsubmit="submitRegistration(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" id="labelFullName">Full Name *</label>
+            <input type="text" class="form-input" id="fullName" name="fullName" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="labelAge">Age *</label>
+            <input type="number" class="form-input" id="age" name="age" min="18" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="labelClass">Class / Grade *</label>
+            <input type="text" class="form-input" id="class" name="class" placeholder="e.g., Grade 10, Secondary 2" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="labelLocation">Location / School *</label>
+            <input type="text" class="form-input" id="location" name="location" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="labelPhone">Phone Number *</label>
+            <input type="tel" class="form-input" id="phone" name="phone" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="labelEmail">Email Address *</label>
+            <input type="email" class="form-input" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="labelCourseName">Course Name *</label>
+            <select class="form-select" id="courseName" name="courseName" required>
+              <option value="">Select a course...</option>
+              <option value="Full Course: All 6 Modules">Full Course: All 6 Modules</option>
+              <option value="Module 1: AI Concepts & Foundations">Module 1: AI Concepts & Foundations</option>
+              <option value="Module 2: Content Creation & Curation">Module 2: Content Creation & Curation</option>
+              <option value="Module 3: Assessment & Feedback">Module 3: Assessment & Feedback</option>
+              <option value="Module 4: Intelligent Tutoring">Module 4: Intelligent Tutoring</option>
+              <option value="Module 5: Admin & Communication">Module 5: Admin & Communication</option>
+              <option value="Module 6: Future of AI in Education">Module 6: Future of AI in Education</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="reg-submit" id="submitBtn">Register Now</button>
+          <button type="reset" class="reg-reset" id="resetBtn">Clear Form</button>
+        </div>
+        <div class="reg-status" id="regStatus"></div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <img class="footer-logo" id="footerLogo" src="" alt="Logo">
+      <div class="footer-meta">
+        <div class="footer-name">AIQ Academy</div>
+        <div class="footer-info" id="footerInfo">Lebanon — Jadra-Barja Main Street, Sowana</div>
+      </div>
+    </div>
+    <div class="footer-right">
+      &copy; 2026 AIQ Academy. <span id="footerAllRights">All Rights Reserved.</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ── CHAT PANEL ── -->
+<div class="overlay" id="overlay" onclick="closeChat()"></div>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-title">
+      <img class="chat-logo" id="chatLogo" src="" alt="Logo">
+      <div id="chatTitleText">AI Assistant</div>
+      <div class="chat-ai-dot"></div>
+    </div>
+    <button class="chat-close" onclick="closeChat()">&times;</button>
+  </div>
+  <div class="chat-ctx" id="chatCtx"></div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-sugg" id="chatSugg"></div>
+  <div class="chat-input-row">
+    <textarea class="chat-input" id="chatInput" placeholder="Type your question..." onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <button class="chat-send" id="sendBtn" onclick="sendMessage()">➔</button>
+  </div>
+</div>
+
+<button class="fab" id="fab" onclick="openChat(null)">💬</button>
+
+<script>
+const LOGO_BASE64 = "data:image/jpeg;base64,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xf8ANxapo7tZ+GpuEIIsDOC+OvphpVyS6h2qKRHEjs3/ACGDgwmycEhKVDni4rir/ox4otJY/wBFI5iJybf/AAmampqampqaloampqampqampqan0zU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTX/2gAMAwEDAgMDAwAAEDDPDHDHPPDDDDCxyNg3DDDHHPPPLDLHLDPPPPPPPPPP880qMMkkoAJrfOPPPPPPPPPPPPPPPPP4ogggYQTDBCCgiwE8wvPPPPPPPPPPPPPPn6Rwh2B8CfG80hSRLPvPPPPPPPPPPPPPPPPPPTcAwwwwog9fL/PPPPPPPPPPPPPPPPPPPPuvzrDPnrjP/OfPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPLPPPPPPPPPPPPPPPPP8tNPPPPO+W/PPOPz3fOvPPPPPPPPPPPPLjTt/PPPD9/PPPZI8c//ADv/AM8888888888aX9G8888XfM85aH4DX7PNS0888888888oYRga8888zt28RFn+888bX4x888888888rUlcze888utU/8ABJvPPPPIaPvPPPPPPPPFuZ2qEfPPPtdPPW9PPPPPLdvvPPPPPPPPPunsbUP/ADzqnL21nfzzzzy0xXzzzzzzzzXG8fXuB3zyDsC9Glfzzzzzn1VzzzzzzzxSzVmQAh7zwC96qkXfzzzzy5ULzzzzzzz5rEzEZ21XfwDVS8hNfzzwV3djPzzzzzzzWiu3zzwxDvzRdbyjSvTyt/VlwzzzzzzzxGD/AM888NoO8rwI8/d88X1BHBU03888886Ju18888pSp2+p/wDPPRe/tuPCZOX/ADzzzyw3/wA88888+vc+/wDvPPPPQjyvPLXvPPPPPPPPNf8AzLPz/XvLLTjD/vzr/Tj7zzzzzzzzzzwN6l6h3EjiVh+My3LRvwvg7zzzzzzzzzyhrjv6/wCJZ4c8cHZcVGQV/c888888888886sPJ6vFtuk1k1Wzzm8r/pV88888888888e4vcKB2QmP9/0pDup8k69x888888888888teKzA99BV61SQYtX6ICx+8888888888888ZHxtQC+NezEe9M+HVKd98888888888888888D85f68x+888/8AMdPPPPPPPPPPPPPPOOUgZsqkN+1I/MGqwxNO/vPPPPPPPP8A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";
+
+const TRANSLATIONS = {
+  en: {
+    pageTitle: "AIQ Academy — Empowering Educators with AI",
+    sidebarTagline: "Empowering Educators with AI",
+    sidebarSection: "Course Modules",
+    apiLbl: "🔑 Anthropic API Key",
+    apiStatus: "Enter key to enable AI assistant",
+    apiStatusReady: "✓ AI assistant ready",
+    apiStatusError: "⚠ Key should start with sk-ant-…",
+    langBtn: "العربية",
+    heroEyebrow: "COURSE CURRICULUM",
+    heroTitle: "Empowering Educators: <em>AI Tools</em> for Transformative Teaching & Learning",
+    heroDesc: "Master the most impactful AI tools in education. From lesson planning to automated grading, learn how to reclaim your time and inspire your students.",
+    statModules: "Modules",
+    statTools: "Tools",
+    statHours: "Hours",
+    pills: ["Self-Paced", "Certified", "Educator-First"],
+    secTopics: "Topics Covered",
+    secTools: "Practical AI Tools",
+    secOutcomes: "What You Will Be Able To Do",
+    askBtn: "💬 Ask AI about Module",
+    chatTitle: "AI Assistant",
+    chatPlaceholder: "Type your question...",
+    chatWelcome: "👋 Welcome to AIQ Academy!\n\nI'm your AI course assistant powered by Claude. Ask me anything about AI tools for education, how to use them in your classroom, which modules suit your goals, or how to get started.\n\nHow can I help you today?",
+    chatContext: "📖 Context: Module",
+    regTitle: "📝 Enroll in the Course",
+    regDesc: "Join AIQ Academy and start your journey to mastering AI tools for education. Fill out the form below to register.",
+    labelFullName: "Full Name *",
+    labelAge: "Age *",
+    labelClass: "Class / Grade *",
+    labelLocation: "Location / School *",
+    labelPhone: "Phone Number *",
+    labelEmail: "Email Address *",
+    labelCourseName: "Course Name *",
+    submitBtn: "Register Now",
+    resetBtn: "Clear Form",
+    regSuccess: "✓ Registration successful! We'll contact you soon.",
+    regError: "⚠ Registration failed. Please try again.",
+    footerInfo: "Lebanon — Jadra-Barja Main Street, Sowana",
+    footerAllRights: "All Rights Reserved.",
+    apiError: "❌ API Error:",
+    networkError: "❌ Network error:",
+    keyWarning: "⚠️ Please enter your Anthropic API key in the sidebar first to enable AI responses."
+  },
+  ar: {
+    pageTitle: "أكاديمية AIQ — تمكين المعلمين بالذكاء الاصطناعي",
+    sidebarTagline: "تمكين المعلمين بالذكاء الاصطناعي",
+    sidebarSection: "وحدات الدورة",
+    apiLbl: "🔑 مفتاح Anthropic API",
+    apiStatus: "أدخل المفتاح لتفعيل مساعد الذكاء الاصطناعي",
+    apiStatusReady: "✓ مساعد الذكاء الاصطناعي جاهز",
+    apiStatusError: "⚠ يجب أن يبدأ المفتاح بـ sk-ant-…",
+    langBtn: "English",
+    heroEyebrow: "منهج الدورة",
+    heroTitle: "تمكين المعلمين: <em>أدوات الذكاء الاصطناعي</em> للتعليم والتعلم التحولي",
+    heroDesc: "أتقن أدوات الذكاء الاصطناعي الأكثر تأثيراً في التعليم. من تخطيط الدروس إلى التقييم الآلي، تعلم كيف تستعيد وقتك وتلهم طلابك.",
+    statModules: "وحدات",
+    statTools: "أداة",
+    statHours: "ساعة",
+    pills: ["تعلم ذاتي", "معتمد", "المعلم أولاً"],
+    secTopics: "المواضيع المغطاة",
+    secTools: "أدوات ذكاء اصطناعي عملية",
+    secOutcomes: "ما ستكون قادراً على فعله",
+    askBtn: "💬 اسأل الذكاء الاصطناعي عن الوحدة",
+    chatTitle: "مساعد الذكاء الاصطناعي",
+    chatPlaceholder: "اكتب سؤالك هنا...",
+    chatWelcome: "👋 مرحبًا بك في أكاديمية AIQ!\n\nأنا مساعد الدورة التدريبية الخاص بك والمدعوم من Claude. اسألني عن أي شيء يخص أدوات الذكاء الاصطناعي للتعليم، وكيفية استخدامها في فصلك الدراسي، أو أي الوحدات تناسب أهدافك، أو كيفية البدء.\n\nكيف يمكنني مساعدتك اليوم؟",
+    chatContext: "📖 السياق: الوحدة",
+    regTitle: "📝 التسجيل في الدورة",
+    regDesc: "انضم إلى أكاديمية AIQ وابدأ رحلتك نحو إتقان أدوات الذكاء الاصطناعي للتعليم. املأ النموذج أدناه للتسجيل.",
+    labelFullName: "الاسم الكامل *",
+    labelAge: "العمر *",
+    labelClass: "الفصل / الصف *",
+    labelLocation: "الموقع / المدرسة *",
+    labelPhone: "رقم الهاتف *",
+    labelEmail: "عنوان البريد الإلكتروني *",
+    labelCourseName: "اسم الدورة *",
+    submitBtn: "التسجيل الآن",
+    resetBtn: "مسح النموذج",
+    regSuccess: "✓ تم التسجيل بنجاح! سنتواصل معك قريباً.",
+    regError: "⚠ فشل التسجيل. يرجى المحاولة مرة أخرى.",
+    footerInfo: "لبنان — شارع جدرا-برجا الرئيسي، الصوانة",
+    footerAllRights: "جميع الحقوق محفوظة.",
+    apiError: "❌ خطأ في API:",
+    networkError: "❌ خطأ في الشبكة:",
+    keyWarning: "⚠️ يرجى إدخال مفتاح Anthropic API في الشريط الجانبي أولاً لتفعيل ردود الذكاء الاصطناعي."
+  }
+};
+
+const MODULES_EN = [
+  {
+    bg:"rgba(26,63,166,0.1)", color:"#1a3fa6",
+    title:"AI Concepts & Foundations",
+    sub:"Demystifying Artificial Intelligence for the Modern Classroom",
+    topics:[
+      {icon:"🧠",title:"Understanding Generative AI",desc:"How LLMs work and why they matter for teachers"},
+      {icon:"⚖️",title:"Ethics & Academic Integrity",desc:"Navigating cheating, bias, and responsible AI use"},
+      {icon:"✍️",title:"Prompt Engineering 101",desc:"The art of talking to AI to get perfect results"},
+    ],
+    tools:[
+      {name:"ChatGPT",desc:"The versatile all-rounder for text and analysis",tag:"Essential",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Claude",desc:"Superior reasoning and long-document analysis",tag:"Advanced",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Gemini",desc:"Google's multimodal AI integrated with Workspace",tag:"Productivity",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Microsoft Copilot",desc:"AI built into Word, PowerPoint, and Excel",tag:"Workflow",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+      {name:"Khan Academy AI",desc:"Student-safe tutoring and teacher support",tag:"Education",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Perplexity AI",desc:"Real-time search with cited sources",tag:"Research",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+    ],
+    outcomes:["Define Generative AI and its role in schools","Craft effective multi-step prompts","Establish a classroom AI policy"],
+    sugg:["What is the best way to introduce AI to students?","How do I detect AI-generated work?","What is the difference between ChatGPT and Claude?","Can AI help with lesson planning?"]
+  },
+  {
+    bg:"rgba(34,197,122,0.1)", color:"#22c97a",
+    title:"Content Creation & Curation",
+    sub:"Generating Lesson Plans, Resources, and Visuals in Seconds",
+    topics:[
+      {icon:"📝",title:"Automated Lesson Planning",desc:"Create standards-aligned plans instantly"},
+      {icon:"🎨",title:"Visual & Slide Generation",desc:"Design stunning presentations with AI help"},
+      {icon:"📖",title:"Resource Differentiation",desc:"Adapt reading levels for diverse learners"},
+    ],
+    tools:[
+      {name:"MagicSchool AI",desc:"40+ tools specifically for teacher tasks",tag:"All-in-One",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Curipod",desc:"Interactive AI-generated slide decks",tag:"Engagement",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Diffit",desc:"Instantly differentiate any resource",tag:"Inclusion",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"QuizGecko",desc:"Turn any text or URL into a quiz",tag:"Assessment",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Canva AI",desc:"Generate images and layouts for class",tag:"Design",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"Gamma",desc:"Create presentations from a single prompt",tag:"Slides",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["Generate a full week of lesson plans in 5 minutes","Create custom worksheets for 3 different reading levels","Design an interactive AI-led classroom activity"],
+    sugg:["How can I use MagicSchool AI?","What's the best tool for making slides?","Can AI create images for my history class?","How do I make a quiz from a YouTube video?"]
+  },
+  {
+    bg:"rgba(245,166,35,0.1)", color:"#f5a623",
+    title:"Assessment & Feedback",
+    sub:"Reclaiming Grading Time with Intelligent Feedback Loops",
+    topics:[
+      {icon:"📊",title:"AI-Powered Grading",desc:"Speed up marking while maintaining quality"},
+      {icon:"💬",title:"Personalized Feedback",desc:"Give every student detailed, actionable advice"},
+      {icon:"🛡️",title:"Academic Integrity",desc:"Using AI to foster honest learning"},
+    ],
+    tools:[
+      {name:"Gradescope",desc:"AI-assisted grading for paper-based exams",tag:"Grading",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Formative",desc:"Real-time tracking with AI insights",tag:"Tracking",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Kahoot! AI",desc:"Generate question sets for gamified learning",tag:"Games",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Quizizz AI",desc:"Automated quiz creation and data analysis",tag:"Assessment",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Turnitin",desc:"AI writing detection and feedback tools",tag:"Integrity",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"GPTZero",desc:"Specialized AI detection for student work",tag:"Security",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["Automate the creation of rubrics","Use AI to provide instant feedback on student drafts","Analyze class-wide performance data for gaps"],
+    sugg:["Is AI grading fair?","How do I use AI to write rubrics?","Which tool is best for math assessments?","How do I handle AI in student essays?"]
+  },
+  {
+    bg:"rgba(59,130,246,0.1)", color:"#3b82f6",
+    title:"Intelligent Tutoring",
+    sub:"Scaling 1-on-1 Support with AI Learning Assistants",
+    topics:[
+      {icon:"🤝",title:"AI as a Socratic Tutor",desc:"Guiding students without giving answers"},
+      {icon:"🔊",title:"Speech & Language AI",desc:"Support for ESL and literacy development"},
+      {icon:"🧩",title:"Adaptive Learning",desc:"Platforms that change based on student needs"},
+    ],
+    tools:[
+      {name:"Khanmigo",desc:"Socratic tutor for every subject",tag:"Tutoring",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Carnegie Learning",desc:"AI-driven math instruction and practice",tag:"Math",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Synthesis Tutor",desc:"Deep conceptual learning through games",tag:"STEM",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Otter.ai",desc:"Transcription for accessible lectures",tag:"Access",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"IXL Learning",desc:"Personalized learning paths for K-12",tag:"Adaptive",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"DreamBox",desc:"Intelligent adaptive math platform",tag:"Math",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["Set up an AI tutor for a specific unit","Use speech-to-text to support diverse learners","Monitor student progress on adaptive platforms"],
+    sugg:["How does Khanmigo help students?","Can AI help students with dyslexia?","What is Socratic tutoring with AI?","Best AI tools for learning a new language?"]
+  },
+  {
+    bg:"rgba(224,92,173,0.1)", color:"#e05cad",
+    title:"Admin & Communication",
+    sub:"Streamlining Emails, Meetings, and School Management",
+    topics:[
+      {icon:"📧",title:"AI for Communication",desc:"Drafting emails and newsletters faster"},
+      {icon:"📅",title:"Workflow Automation",desc:"Connecting apps to save admin time"},
+      {icon:"📈",title:"Data Management",desc:"Organizing school data with AI tools"},
+    ],
+    tools:[
+      {name:"Notion AI",desc:"Organize school projects and notes",tag:"Admin",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Fireflies AI",desc:"Transcribe and summarize school meetings",tag:"Meetings",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Zapier AI",desc:"Automate repetitive admin tasks",tag:"Automation",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"ClassDojo",desc:"AI tools for parent-teacher communication",tag:"Community",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Sown To Grow",desc:"AI for student well-being and reflection",tag:"SEL",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"Google Workspace AI",desc:"Gemini for Docs, Sheets, and Gmail",tag:"Productivity",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["Draft a parent newsletter in 2 minutes","Set up an automated meeting summary workflow","Create a school project tracker with AI"],
+    sugg:["How can I save time on emails?","What is the best way to summarize staff meetings?","Can AI help with school scheduling?","How to use Notion for teacher organization?"]
+  },
+  {
+    bg:"rgba(26,63,166,0.1)", color:"#1a3fa6",
+    title:"Future of AI in Education",
+    sub:"Preparing Students for an AI-Powered World",
+    topics:[
+      {icon:"🚀",title:"AI Literacy for Students",desc:"What every student needs to know"},
+      {icon:"💼",title:"Career Readiness",desc:"How AI is changing the future of work"},
+      {icon:"🏫",title:"School-Wide AI Implementation Plan",desc:"How to bring AI to your entire institution"},
+    ],
+    tools:[
+      {name:"TeachAI",desc:"Policy guidance for schools adopting AI",tag:"Policy",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"ISTE",desc:"Professional development for educators",tag:"PD",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"AI4K12",desc:"AI curriculum and resources for K–12",tag:"Curriculum",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Microsoft EDU AI",desc:"School-wide AI tools from Microsoft",tag:"School",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+      {name:"Google for Education",desc:"AI tools and training programs for schools",tag:"School",c:"rgba(34,197,122,0.14)",t:"#86efac",a:"#22c55e"},
+      {name:"Future of Life Institute",desc:"AI ethics, safety and futures research",tag:"Research",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+    ],
+    outcomes:["Draft your personal AI classroom action plan","Lead a school-wide AI adoption conversation","Name the top AI trends shaping education in 2026","Connect with professional AI educator communities"],
+    sugg:["What AI trends should educators watch in 2026?","How do I create a school-wide AI plan?","Where can teachers learn more about AI?","What does an AI-integrated classroom look like?"]
+  }
+];
+
+const MODULES_AR = [
+  {
+    bg:"rgba(26,63,166,0.1)", color:"#1a3fa6",
+    title:"مفاهيم وأسس الذكاء الاصطناعي",
+    sub:"تبسيط الذكاء الاصطناعي للفصل الدراسي الحديث",
+    topics:[
+      {icon:"🧠",title:"فهم الذكاء الاصطناعي التوليدي",desc:"كيف تعمل النماذج اللغوية الكبيرة ولماذا تهم المعلمين"},
+      {icon:"⚖️",title:"الأخلاقيات والنزاهة الأكاديمية",desc:"التعامل مع الغش والتحيز والاستخدام المسؤول"},
+      {icon:"✍️",title:"هندسة الأوامر 101",desc:"فن التحدث مع الذكاء الاصطناعي للحصول على نتائج مثالية"},
+    ],
+    tools:[
+      {name:"ChatGPT",desc:"الأداة متعددة الاستخدامات للنصوص والتحليل",tag:"أساسي",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Claude",desc:"تفكير متفوق وتحليل للمستندات الطويلة",tag:"متقدم",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Gemini",desc:"ذكاء جوجل المدمج مع Workspace",tag:"إنتاجية",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Microsoft Copilot",desc:"ذكاء مدمج في Word وPowerPoint وExcel",tag:"سير عمل",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+      {name:"Khan Academy AI",desc:"دروس خصوصية آمنة للطلاب ودعم للمعلمين",tag:"تعليم",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Perplexity AI",desc:"بحث في الوقت الفعلي مع مصادر موثقة",tag:"بحث",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+    ],
+    outcomes:["تعريف الذكاء الاصطناعي التوليدي ودوره في المدارس","صياغة أوامر فعالة متعددة الخطوات","وضع سياسة للذكاء الاصطناعي في الفصل"],
+    sugg:["ما هي أفضل طريقة لتقديم الذكاء الاصطناعي للطلاب؟","كيف يمكنني كشف العمل المنتج بالذكاء الاصطناعي؟","ما الفرق بين ChatGPT وClaude؟","هل يمكن للذكاء الاصطناعي المساعدة في تخطيط الدروس؟"]
+  },
+  {
+    bg:"rgba(34,197,122,0.1)", color:"#22c97a",
+    title:"إنشاء وتقييم المحتوى",
+    sub:"توليد خطط الدروس والموارد والمرئيات في ثوانٍ",
+    topics:[
+      {icon:"📝",title:"تخطيط الدروس الآلي",desc:"إنشاء خطط متوافقة مع المعايير فوراً"},
+      {icon:"🎨",title:"توليد المرئيات والشرائح",desc:"تصميم عروض تقديمية مذهلة بمساعدة الذكاء الاصطناعي"},
+      {icon:"📖",title:"تمايز الموارد",desc:"تكييف مستويات القراءة لمختلف المتعلمين"},
+    ],
+    tools:[
+      {name:"MagicSchool AI",desc:"أكثر من 40 أداة مخصصة لمهام المعلمين",tag:"شامل",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Curipod",desc:"شرائح تفاعلية مولدة بالذكاء الاصطناعي",tag:"تفاعل",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Diffit",desc:"تمييز أي مورد تعليمي فوراً",tag:"دمج",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"QuizGecko",desc:"حول أي نص أو رابط إلى اختبار",tag:"تقييم",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Canva AI",desc:"توليد صور وتخطيطات للفصل",tag:"تصميم",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"Gamma",desc:"إنشاء عروض تقديمية من أمر واحد",tag:"شرائح",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["توليد خطط دروس لأسبوع كامل في 5 دقائق","إنشاء أوراق عمل مخصصة لـ 3 مستويات قراءة مختلفة","تصميم نشاط صفي تفاعلي يقوده الذكاء الاصطناعي"],
+    sugg:["كيف يمكنني استخدام MagicSchool AI؟","ما هي أفضل أداة لصنع الشرائح؟","هل يمكن للذكاء الاصطناعي إنشاء صور لدرس التاريخ؟","كيف أصنع اختباراً من فيديو يوتيوب؟"]
+  },
+  {
+    bg:"rgba(245,166,35,0.1)", color:"#f5a623",
+    title:"التقييم والتغذية الراجعة",
+    sub:"استعادة وقت التصحيح مع حلقات التغذية الراجعة الذكية",
+    topics:[
+      {icon:"📊",title:"التصحيح المدعوم بالذكاء الاصطناعي",desc:"تسريع التصحيح مع الحفاظ على الجودة"},
+      {icon:"💬",title:"تغذية راجعة شخصية",desc:"تقديم نصائح مفصلة وعملية لكل طالب"},
+      {icon:"🛡️",title:"النزاهة الأكاديمية",desc:"استخدام الذكاء الاصطناعي لتعزيز التعلم الصادق"},
+    ],
+    tools:[
+      {name:"Gradescope",desc:"تصحيح مدعوم بالذكاء الاصطناعي للامتحانات الورقية",tag:"تصحيح",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Formative",desc:"تتبع في الوقت الفعلي مع رؤى الذكاء الاصطناعي",tag:"تتبع",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Kahoot! AI",desc:"توليد مجموعات أسئلة للتعلم القائم على اللعب",tag:"ألعاب",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Quizizz AI",desc:"إنشاء اختبارات آلي وتحليل البيانات",tag:"تقييم",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Turnitin",desc:"أدوات كشف الكتابة بالذكاء الاصطناعي والتغذية الراجعة",tag:"نزاهة",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"GPTZero",desc:"كشف متخصص للذكاء الاصطناعي في أعمال الطلاب",tag:"أمن",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["أتمتة إنشاء معايير التقييم (Rubrics)","استخدام الذكاء الاصطناعي لتقديم تغذية راجعة فورية","تحليل بيانات أداء الفصل لكشف الفجوات"],
+    sugg:["هل تصحيح الذكاء الاصطناعي عادل؟","كيف أستخدم الذكاء الاصطناعي لكتابة معايير التقييم؟","أي أداة هي الأفضل لتقييمات الرياضيات؟","كيف أتعامل مع الذكاء الاصطناعي في مقالات الطلاب؟"]
+  },
+  {
+    bg:"rgba(59,130,246,0.1)", color:"#3b82f6",
+    title:"التدريس الذكي",
+    sub:"توسيع نطاق الدعم الفردي مع مساعدي التعلم الذكي",
+    topics:[
+      {icon:"🤝",title:"الذكاء الاصطناعي كمعلم سقراطي",desc:"توجيه الطلاب دون إعطاء الإجابات مباشرة"},
+      {icon:"🔊",title:"ذكاء الكلام واللغة",desc:"دعم متعلمي اللغة الإنجليزية وتطوير القراءة والكتابة"},
+      {icon:"🧩",title:"التعلم التكيفي",desc:"منصات تتغير بناءً على احتياجات الطالب"},
+    ],
+    tools:[
+      {name:"Khanmigo",desc:"معلم سقراطي لكل موضوع",tag:"تدريس",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Carnegie Learning",desc:"تعليم وممارسة الرياضيات مدفوع بالذكاء الاصطناعي",tag:"رياضيات",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Synthesis Tutor",desc:"تعلم مفاهيمي عميق من خلال الألعاب",tag:"STEM",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"Otter.ai",desc:"نسخ نصي للمحاضرات لسهولة الوصول",tag:"وصول",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"IXL Learning",desc:"مسارات تعلم مخصصة لجميع المراحل",tag:"تكييفي",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"DreamBox",desc:"منصة رياضيات ذكية وتكيفية",tag:"رياضيات",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["إعداد معلم ذكاء اصطناعي لوحدة معينة","استخدام تحويل الكلام إلى نص لدعم المتعلمين المختلفين","مراقبة تقدم الطلاب على المنصات التكيفية"],
+    sugg:["كيف يساعد Khanmigo الطلاب؟","هل يمكن للذكاء الاصطناعي مساعدة الطلاب الذين يعانون من عسر القراءة؟","ما هو التدريس السقراطي بالذكاء الاصطناعي؟","أفضل أدوات الذكاء الاصطناعي لتعلم لغة جديدة؟"]
+  },
+  {
+    bg:"rgba(224,92,173,0.1)", color:"#e05cad",
+    title:"الإدارة والتواصل",
+    sub:"تبسيط البريد الإلكتروني والاجتماعات وإدارة المدرسة",
+    topics:[
+      {icon:"📧",title:"الذكاء الاصطناعي للتواصل",desc:"صياغة رسائل البريد والنشرات الإخبارية بشكل أسرع"},
+      {icon:"📅",title:"أتمتة سير العمل",desc:"ربط التطبيقات لتوفير وقت الإدارة"},
+      {icon:"📈",title:"إدارة البيانات",desc:"تنظيم بيانات المدرسة بأدوات الذكاء الاصطناعي"},
+    ],
+    tools:[
+      {name:"Notion AI",desc:"تنظيم مشاريع المدرسة والملاحظات",tag:"إدارة",c:"rgba(212,165,32,0.18)",t:"#e8bc38",a:"#d4a520"},
+      {name:"Fireflies AI",desc:"نسخ وتلخيص اجتماعات المدرسة",tag:"اجتماعات",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"Zapier AI",desc:"أتمتة المهام الإدارية المتكررة",tag:"أتمتة",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"ClassDojo",desc:"أدوات ذكاء اصطناعي للتواصل بين الأهل والمعلمين",tag:"مجتمع",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Sown To Grow",desc:"ذكاء اصطناعي لرفاهية الطلاب والتأمل الذاتي",tag:"SEL",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+      {name:"Google Workspace AI",desc:"Gemini لمستندات وجداول بيانات جوجل",tag:"إنتاجية",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+    ],
+    outcomes:["صياغة نشرة إخبارية لأولياء الأمور في دقيقتين","إعداد سير عمل آلي لتلخيص الاجتماعات","إنشاء متتبع لمشاريع المدرسة باستخدام الذكاء الاصطناعي"],
+    sugg:["كيف يمكنني توفير الوقت في رسائل البريد؟","ما هي أفضل طريقة لتلخيص اجتماعات الموظفين؟","هل يمكن للذكاء الاصطناعي المساعدة في جدولة المواعيد المدرسية؟","كيفية استخدام Notion لتنظيم عمل المعلم؟"]
+  },
+  {
+    bg:"rgba(26,63,166,0.1)", color:"#1a3fa6",
+    title:"مستقبل الذكاء الاصطناعي في التعليم",
+    sub:"إعداد الطلاب لعالم مدعوم بالذكاء الاصطناعي",
+    topics:[
+      {icon:"🚀",title:"الثقافة المعلوماتية للذكاء الاصطناعي",desc:"ما يحتاج كل طالب لمعرفته"},
+      {icon:"💼",title:"الاستعداد الوظيفي",desc:"كيف يغير الذكاء الاصطناعي مستقبل العمل"},
+      {icon:"🏫",title:"خطة تنفيذ الذكاء الاصطناعي على مستوى المدرسة",desc:"كيفية إدخال الذكاء الاصطناعي لمؤسستك بالكامل"},
+    ],
+    tools:[
+      {name:"TeachAI",desc:"توجيهات السياسة للمدارس التي تتبنى الذكاء الاصطناعي",tag:"سياسة",c:"rgba(59,130,246,0.18)",t:"#60a5fa",a:"#3b82f6"},
+      {name:"ISTE",desc:"التطوير المهني للمعلمين",tag:"تطوير",c:"rgba(34,197,122,0.18)",t:"#4ade80",a:"#22c55e"},
+      {name:"AI4K12",desc:"منهج وموارد الذكاء الاصطناعي لـ K–12",tag:"منهج",c:"rgba(245,166,35,0.18)",t:"#fbbf24",a:"#f59e0b"},
+      {name:"Microsoft EDU AI",desc:"أدوات الذكاء الاصطناعي المدرسية من مايكروسوفت",tag:"مدرسة",c:"rgba(59,130,246,0.14)",t:"#93c5fd",a:"#2563eb"},
+      {name:"Google for Education",desc:"أدوات وبرامج تدريبية للمدارس من جوجل",tag:"مدرسة",c:"rgba(34,197,122,0.14)",t:"#86efac",a:"#22c55e"},
+      {name:"Future of Life Institute",desc:"أخلاقيات الذكاء الاصطناعي وسلامته وأبحاث المستقبل",tag:"أبحاث",c:"rgba(224,92,173,0.18)",t:"#f9a8d4",a:"#e05cad"},
+    ],
+    outcomes:["صياغة خطة عمل شخصية للذكاء الاصطناعي في فصلك","قيادة حوار حول تبني الذكاء الاصطناعي في المدرسة","تسمية أهم اتجاهات الذكاء الاصطناعي في التعليم لعام 2026","التواصل مع مجتمعات معلمي الذكاء الاصطناعي المهنية"],
+    sugg:["ما هي اتجاهات الذكاء الاصطناعي التي يجب مراقبتها في 2026؟","كيف أنشئ خطة ذكاء اصطناعي للمدرسة بالكامل؟","أين يمكن للمعلمين تعلم المزيد عن الذكاء الاصطناعي؟","كيف يبدو الفصل الدراسي المدمج بالذكاء الاصطناعي؟"]
+  }
+];
+
+let currentLang = 'en';
+let MODULES = MODULES_EN;
+
+function updateLogos() {
+    document.getElementById('sidebarLogo').src = LOGO_BASE64;
+    document.getElementById('heroLogo').src = LOGO_BASE64;
+    document.getElementById('footerLogo').src = LOGO_BASE64;
+    document.getElementById('chatLogo').src = LOGO_BASE64;
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  MODULES = currentLang === 'en' ? MODULES_EN : MODULES_AR;
+  
+  const t = TRANSLATIONS[currentLang];
+  
+  // Update static texts
+  document.getElementById('pageTitle').textContent = t.pageTitle;
+  document.getElementById('sidebarTagline').textContent = t.sidebarTagline;
+  document.getElementById('sidebarSection').textContent = t.sidebarSection;
+  document.getElementById('apiLbl').textContent = t.apiLbl;
+  document.getElementById('apiStatus').textContent = apiKey ? (apiKey.startsWith('sk-ant-') ? t.apiStatusReady : t.apiStatusError) : t.apiStatus;
+  document.getElementById('langBtnText').textContent = t.langBtn;
+  document.getElementById('heroEyebrow').innerHTML = `<span class="hero-dot"></span> ${t.heroEyebrow}`;
+  document.getElementById('heroTitle').innerHTML = t.heroTitle;
+  document.getElementById('heroDesc').textContent = t.heroDesc;
+  document.getElementById('statModules').textContent = t.statModules;
+  document.getElementById('statTools').textContent = t.statTools;
+  document.getElementById('statHours').textContent = t.statHours;
+  document.getElementById('footerInfo').textContent = t.footerInfo;
+  document.getElementById('footerAllRights').textContent = t.footerAllRights;
+  document.getElementById('chatTitleText').textContent = t.chatTitle;
+  document.getElementById('chatInput').placeholder = t.chatPlaceholder;
+  
+  // Update Registration Form
+  document.getElementById('regTitle').textContent = t.regTitle;
+  document.getElementById('regDesc').textContent = t.regDesc;
+  document.getElementById('labelFullName').textContent = t.labelFullName;
+  document.getElementById('labelAge').textContent = t.labelAge;
+  document.getElementById('labelClass').textContent = t.labelClass;
+  document.getElementById('labelLocation').textContent = t.labelLocation;
+  document.getElementById('labelPhone').textContent = t.labelPhone;
+  document.getElementById('labelEmail').textContent = t.labelEmail;
+  document.getElementById('labelCourseName').textContent = t.labelCourseName;
+  document.getElementById('submitBtn').textContent = t.submitBtn;
+  document.getElementById('resetBtn').textContent = t.resetBtn;
+  
+  // Update Pills
+  const pillsContainer = document.getElementById('heroPills');
+  pillsContainer.innerHTML = t.pills.map(p => `<span class="pill">${p}</span>`).join('');
+
+  // Update RTL Class
+  if (currentLang === 'ar') {
+    document.body.classList.add('rtl');
+  } else {
+    document.body.classList.remove('rtl');
+  }
+
+  // Re-render Modules and Nav
+  renderNav();
+  renderModules();
+  
+  // Reset Chat if empty
+  if (chatHist.length === 0) {
+    document.getElementById('chatMessages').innerHTML = '';
+    addMsg('ai', t.chatWelcome);
+  }
+}
+
+function renderNav() {
+  const container = document.getElementById('navContainer');
+  container.innerHTML = MODULES.map((m, i) => `
+    <button class="nav-item ${i === 0 ? 'active' : ''}" onclick="goTo(${i})" id="nav-${i}">
+      <span class="nav-num">${i + 1}</span>
+      <span class="nav-label">${m.title}</span>
+    </button>
+  `).join('');
+}
+
+function renderModules() {
+  const container = document.getElementById('courseContent');
+  const t = TRANSLATIONS[currentLang];
+  container.innerHTML = '';
+  MODULES.forEach((m, i) => {
+    const d = document.createElement('div');
+    d.className = 'module-card'; d.id = `module-${i}`;
+    d.innerHTML = `
+    <div class="mod-header" onclick="toggleMod(${i})">
+      <div class="mod-badge" style="background:${m.bg};color:${m.color}">${String(i+1).padStart(2,'0')}</div>
+      <div class="mod-meta">
+        <div class="mod-title">${m.title}</div>
+        <div class="mod-sub">${m.sub}</div>
+      </div>
+      <div class="mod-toggle" id="tog-${i}">▾</div>
+    </div>
+    <div class="mod-body" id="body-${i}">
+      <div class="mod-inner">
+        <div class="sec-label">${t.secTopics}</div>
+        <div class="topics-grid">
+          ${m.topics.map(t=>`<div class="topic-card"><div class="topic-icon">${t.icon}</div><div class="topic-title">${t.title}</div><div class="topic-desc">${t.desc}</div></div>`).join('')}
+        </div>
+        <div class="sec-label">${t.secTools}</div>
+        <div class="tools-grid">
+          ${m.tools.map(t=>`<div class="tool-chip" style="--chip-accent:${t.a}"><div class="tool-name">${t.name}</div><div class="tool-desc">${t.desc}</div><span class="tool-tag" style="background:${t.c};color:${t.t}">${t.tag}</span></div>`).join('')}
+        </div>
+        <div class="sec-label">${t.secOutcomes}</div>
+        <ul class="outcomes">${m.outcomes.map(o=>`<li>${o}</li>`).join('')}</ul>
+        <button class="ask-btn" onclick="openChat(${i})">${t.askBtn} ${i+1} ↗</button>
+      </div>
+    </div>`;
+    container.appendChild(d);
+  });
+  toggleMod(0);
+}
+
+// ── INITIAL RENDER ──
+updateLogos();
+renderNav();
+renderModules();
+
+function toggleMod(i){
+  const b=document.getElementById(`body-${i}`),t=document.getElementById(`tog-${i}`),c=document.getElementById(`module-${i}`);
+  const o=b.classList.contains('open');
+  b.classList.toggle('open',!o); t.classList.toggle('open',!o); c.classList.toggle('active',!o);
+}
+function goTo(i){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById(`nav-${i}`).classList.add('active');
+  document.getElementById(`module-${i}`).scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── API ──
+let apiKey='';
+function onKey(v){
+  apiKey=v.trim();
+  const s=document.getElementById('apiStatus');
+  const t = TRANSLATIONS[currentLang];
+  if(apiKey.startsWith('sk-ant-')&&apiKey.length>20){s.textContent=t.apiStatusReady;s.style.color='#22c97a'}
+  else if(apiKey.length>0){s.textContent=t.apiStatusError;s.style.color='#f5a623'}
+  else{s.textContent=t.apiStatus;s.style.color=''}
+}
+
+// ── REGISTRATION ──
+async function submitRegistration(event) {
+  event.preventDefault();
+  const t = TRANSLATIONS[currentLang];
+  const statusEl = document.getElementById('regStatus');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  // Collect form data
+  const formData = {
+    timestamp: new Date().toISOString(),
+    fullName: document.getElementById('fullName').value,
+    age: document.getElementById('age').value,
+    class: document.getElementById('class').value,
+    location: document.getElementById('location').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+    courseName: document.getElementById('courseName').value
+  };
+  
+  submitBtn.disabled = true;
+  statusEl.textContent = 'Submitting...';
+  statusEl.className = 'reg-status';
+  statusEl.style.display = 'block';
+  
+  try {
+    // Send to Google Apps Script
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxZJNotki-pYGIO49N_36bDi2rD6R1sa02xvVUFnHw_f9qjnaCTFU_ylFGdzb6DCMbc/exec', {
+      method: 'POST',
+      body: JSON.stringify(formData)
+    });
+    
+    if (response.ok) {
+      statusEl.textContent = t.regSuccess;
+      statusEl.className = 'reg-status success';
+      document.getElementById('registrationForm').reset();
+      setTimeout(() => statusEl.style.display = 'none', 5000);
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (error) {
+    statusEl.textContent = t.regError + ' ' + error.message;
+    statusEl.className = 'reg-status error';
+  } finally {
+    submitBtn.disabled = false;
+  }
+}
+
+// ── CHAT ──
+let curMod=null, chatHist=[];
+const defSugg_EN=["Which module should I start with?","Best AI tool for lesson planning?","How do I get an Anthropic API key?","Is this course suitable for non-tech teachers?"];
+const defSugg_AR=["بأي وحدة يجب أن أبدأ؟","ما هي أفضل أداة ذكاء اصطناعي لتخطيط الدروس؟","كيف أحصل على مفتاح Anthropic API؟","هل هذه الدورة مناسبة للمعلمين غير التقنيين؟"];
+
+function openChat(idx){
+  curMod=idx;
+  const t = TRANSLATIONS[currentLang];
+  document.getElementById('chatPanel').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('fab').classList.add('hidden');
+  const ctx=document.getElementById('chatCtx');
+  if(idx!==null){ctx.textContent=`${t.chatContext} ${idx+1} — ${MODULES[idx].title}`;ctx.classList.add('show')}
+  else ctx.classList.remove('show');
+  renderSugg(idx!==null ? MODULES[idx].sugg : (currentLang === 'en' ? defSugg_EN : defSugg_AR));
+  if(chatHist.length===0) addMsg('ai', t.chatWelcome);
+  setTimeout(()=>document.getElementById('chatInput').focus(),300);
+}
+function closeChat(){
+  document.getElementById('chatPanel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('fab').classList.remove('hidden');
+}
+function renderSugg(chips){
+  document.getElementById('chatSugg').innerHTML=chips.map(c=>`<button class="sugg-chip" onclick="useSugg('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('');
+}
+function useSugg(t){document.getElementById('chatInput').value=t; sendMessage();}
+function addMsg(role,text){
+  const msgs=document.getElementById('chatMessages');
+  const d=document.createElement('div'); d.className=`msg ${role}`;
+  const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML=`<div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div><div class="msg-time">${time}</div>`;
+  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+}
+function showTyping(){
+  const msgs=document.getElementById('chatMessages');
+  const d=document.createElement('div'); d.className='msg ai'; d.id='typing';
+  d.innerHTML='<div class="typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('typing'); if(t)t.remove();}
+
+async function sendMessage(){
+  const inp=document.getElementById('chatInput');
+  const text=inp.value.trim();
+  const t = TRANSLATIONS[currentLang];
+  if(!text) return;
+  if(!apiKey||!apiKey.startsWith('sk-ant-')){
+    addMsg('ai', t.keyWarning);
+    return;
+  }
+  inp.value=''; inp.style.height='auto';
+  document.getElementById('sendBtn').disabled=true;
+  addMsg('user',text);
+  chatHist.push({role:'user',content:text});
+  showTyping();
+
+  const modCtx=curMod!==null
+    ? `The educator is currently viewing Module ${curMod+1}: "${MODULES[curMod].title}". Tools in this module: ${MODULES[curMod].tools.map(t=>t.name).join(', ')}.`
+    : '';
+
+  const sys=`You are an expert AI in Education instructor for AIQ Academy, a technology academy in Lebanon (Jadra-Barja Main Street, Sowana. Tel: +961 70 894 910. Social: aiq.tech.academy).
+You help educators understand and apply AI tools in real classroom situations.
+The course "Empowering Educators: AI Tools for Transformative Teaching & Learning" has 6 modules.
+Respond in the language the user is using (English or Arabic).
+${modCtx}
+Be warm, encouraging, and educator-focused. Keep answers to 2–3 short paragraphs. Use plain language. Give concrete classroom examples. When recommending tools, explain exactly how a teacher would use them in practice.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-3-5-sonnet-20241022',max_tokens:1000,system:sys,messages:chatHist})
+    });
+    hideTyping();
+    const data=await res.json();
+    if(data.error){addMsg('ai',`${t.apiError} ${data.error.message}`);chatHist.pop();}
+    else{const r=data.content[0].text;addMsg('ai',r);chatHist.push({role:'assistant',content:r});}
+  } catch(e){
+    hideTyping();
+    addMsg('ai',`${t.networkError} ${e.message}`);
+    chatHist.pop();
+  }
+  document.getElementById('sendBtn').disabled=false;
+  inp.focus();
+}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+</script>
+</body>
+</html>
